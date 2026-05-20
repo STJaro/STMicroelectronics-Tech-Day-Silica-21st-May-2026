@@ -83,7 +83,7 @@ HAL_EXTI_RegisterTriggerCallback(hexti, myexticallback);
 ```c
 void myexticallback(hal_exti_handle_t *hexti, hal_exti_trigger_t trigger)
 {
-    // This function executes exclusively for events associated with myEXTI
+    // This function executes exclusively for the event associated with myEXTI
     HAL_GPIO_TogglePin(LED1_PORT, LED1_PIN);
 }
 ```

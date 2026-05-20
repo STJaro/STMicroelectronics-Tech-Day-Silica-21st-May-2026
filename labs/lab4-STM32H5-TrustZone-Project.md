@@ -5,20 +5,21 @@ This hands-on exercise guides you through configuring an ARM TrustZone project o
 
 ---
 
-## ⚙️ 1. Hardware Isolation Configuration (STM32CubeMX)
+## ⚙️ STM32CubeMX
 
 1. Open **STM32CubeMX** and click on **Start from MCU**.
-2. Search for and select the **STM32H573IIK3Q** microcontroller.
-3. Click **Yes** on the initialization pop-up window prompt.
+2. Search for and select the **STM32H573IIK3Q** MCU.
+3. Respond **Yes** to the initialization pop-up window asking **For better performance it is recommended to enable the instruction cache (ICACHE) and the MPU to access OTP & RO areas.
+Do you want to apply now such default configuration?**"
 4. In the Security selection window, select **"with TrustZone activated"**.
 5. Navigate to the **Project Manager** tab, assign your project a clear name, and select **CMake** as your target Toolchain/IDE.
-6. Click **Generate Code** to output your foundational files.
+6. Click **Generate Code**.
 
 ---
 
-## 💻 2. Environment Configuration (VS Code)
+## 💻 2. Visual Studio Code
 
-1. Open the newly generated workspace directory using VS Code.
+1. Launch Visual Studio Code, select **File ➜ Open Folder...** and select the folder with the generated project.
 2. When prompted with the automatic notification alert, respond **Yes** to *"Configure discovered CMake project(s) as STM32Cube project(s)?"*.
 3. Select the active configuration preset value: **Debug**.
 4. Locate the **Project Setup** window interface panel and click the **Configure** button indicated by the gear icon.
@@ -26,9 +27,9 @@ This hands-on exercise guides you through configuring an ARM TrustZone project o
 6. Verify and select your distinct project targets for the secure and non-secure execution scopes:
    * **Secure context target:** `TZ_Project_H5_S`
    * **Non-secure context target:** `TZ_Project_H5_NS`
-7. Click **Save and close** to commit your environment properties layout.
+7. Click **Save and close**.
 
-> ⏳ **Note:** Please wait patiently while the extension completes parsing. It takes some time to build and link both separate project directories concurrently.
+> ⏳ **Note:** Please wait while the operation is completed. It takes some time to build and link both separate project directories concurrently.
 
 ### Managing Project Outlines
 * Check the **CMake** extension activity view panel to verify that both the secure and non-secure targets show up cleanly within your **Project Outline** hierarchy tree.
@@ -40,8 +41,8 @@ This hands-on exercise guides you through configuring an ARM TrustZone project o
 
 Because a TrustZone setup compiles two individual binary images with separate memory privileges, we must customize our debug server configuration to upload both files correctly.
 
-1. Open the **Run and Debug** side layout view panel (**CTRL + Shift + D**) and click the prompt link to generate a baseline `launch.json` file.
-2. Choose **STM32Cube: Launch STLink GDB Server** as your environment baseline.
+1. Open the **Run and Debug** side layout view pane1. Open the **Run and Debug** side drawer configuration layout view (**CTRL + Shift + D**).
+2. Click to `create a new launch.json` configuration file, and select **STM32Cube: Launch STLink GDB Server** from the context dropdown menu list.
 3. Locate the `imagesAndSymbols` definition block array. You need to **duplicate** the default `"imageFileName"` declaration block element to provide dual-context mapping logic:
 
 ```json
@@ -63,23 +64,13 @@ Because a TrustZone setup compiles two individual binary images with separate me
 ```
 
 ### 🚀 Launching the Debug Session
-1. Press **F5** to kick off the **Start Debugging** pipeline.
-2. The environment framework will prompt you with sequential drop-down selection steps to assign binaries to your configuration fields.
-3. **CRITICAL ORDER FOR FLASHING:**
+1. Click on **Start Debugging (F5)** to download the firmware directly into the physical target STM32H5 MCU and launch a debug session.
+2. **CRITICAL ORDER FOR FLASHING:**
    * Select the **Non-Secure (NS)** binary profile for **Context 1** first, followed by the **Secure (S)** binary profile for **Context 2**.
-4. Click **Yes** when prompted by the system asking *"Store this debug configuration?"*. Choose a descriptive name such as `my debug config`.
-5. Re-inspect your `.vscode/launch.json` workspace file to verify that the updated parameters are permanently saved.
-
+3. Click **Yes** when prompted by the system asking *"Store this debug configuration?"*. Choose a descriptive name such as `TrustZone debug config`.
+4. Re-inspect your `launch.json` workspace file to verify that the updated parameters are permanently saved.
+4. Step the code and observe switching from secure to non-secure application.
 ---
 
-## 🏃 4. Validation & State Verification
-
-Once the debugger activates on your target hardware, you can actively inspect the physical processing core state indicators inside your peripheral tabs to see whether the chip is executing instructions within a Secure or Non-Secure environment loop.
-
-### Code Exercise: Visualizing State Boundaries
-To visually track real-time security context switches on your physical board without using a debugger breakpoint trace, implement a separate LED indicator routine within each main application file loop:
-* **Non-Secure Workspace Loop (`main.c` under `TZ_Project_H5_NS`):** Toggle the **Green LED** on pin `PI9`.
-* **Secure Workspace Loop (`main.c` under `TZ_Project_H5_S`):** Toggle the **Orange LED** on pin `PI8`.
-
-> 💡 **Multi-Purpose Application Note:** This precise dual-context code framework configuration layout and image filename duplicate indexing layout is identical to what is required when setting up system structures that use a decoupled **Bootloader** combined with primary **Application Firmware**!
+> 💡 This configuration layout and image filename duplicate indexing layout is identical to what is required when setting up system structures that use a decoupled **Bootloader** combined with primary **Application Firmware**!
 ```

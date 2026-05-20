@@ -92,7 +92,7 @@ HAL_Delay(500);
 
 ---
 
-## 🚀 4. Flashing & Hardware Debugging
+## 🚀 4. Flashing & Debugging
 
 1. Open the **Run and Debug** side drawer configuration layout view (**CTRL + Shift + D**).
 2. Click to `create a new launch.json` configuration file, and select **STM32Cube: Launch STLink GDB Server** from the context dropdown menu list.
