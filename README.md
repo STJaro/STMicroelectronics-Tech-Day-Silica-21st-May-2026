@@ -1,0 +1,1 @@
+# STMicroelectronics-Tech-Day-Silica-21st-May-2026
