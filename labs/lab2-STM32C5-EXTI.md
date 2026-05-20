@@ -1,4 +1,4 @@
-# Hands-On: STM32C5 EXTI (External Interrupts)
+# Hands-On: STM32C5 EXTI
 
 This hands-on lab explores the architecture of external interrupts (EXTI) using the STM32 HAL library. We will progress from a traditional monolithic weak callback setup to a decoupled runtime register callback system using hardware labels, and finally implement an advanced context-passing configuration using User Data pointers.
 
