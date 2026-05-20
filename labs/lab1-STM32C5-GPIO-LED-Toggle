@@ -1,0 +1,29 @@
+# Lab 1: GPIO & Blinky
+
+In this lab, we will configure `PA5` as an output to blink the on-board LED using the STM32 HAL (Hardware Abstraction Layer) library.
+
+## Step 1: Pin Initialization
+Paste this block inside your `main.c` file under the `MX_GPIO_Init` function or private functions area:
+
+```c
+// Enable GPIOA Clock
+__HAL_RCC_GPIOA_CLK_ENABLE();
+
+GPIO_InitTypeDef GPIO_InitStruct = {0};
+GPIO_InitStruct.Pin = GPIO_PIN_5;
+GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP; // Push-pull output
+GPIO_InitStruct.Pull = GPIO_NOPULL;
+GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+```
+
+## Step 2: The Main Loop
+Place this snippet inside the infinite `while(1)` loop of your `main()` function:
+
+```c
+while (1)
+{
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_GPIO_Delay(500); // Delay 500ms
+}
+```
