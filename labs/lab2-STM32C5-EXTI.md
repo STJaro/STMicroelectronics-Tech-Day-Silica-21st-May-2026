@@ -38,7 +38,7 @@ hexti = mx_gpio_default_exti13_gethandle();
 > * **CTRL + click** the specific parameter data type keyword to jump directly to the underlying list of individual allowed enumerated values.
 
 6. Navigate into `stm32c5xx_hal_exti.c` and search for the `__weak` attribute keyword to find the callback: `HAL_EXTI_TriggerCallback`.
-7. Copy this callback function at the top section of your `main.c` and thus override the weak implementation.
+7. Copy this callback function (without __weak) at the top section of your `main.c` and thus override the weak implementation.
 Toggle LED each time the callback is called from an ISR:
 
 ```c
