@@ -1,4 +1,4 @@
-# STMicroelectronics-STM32C5-Hands-On-Workshop-2026
+# STMicroelectronics STM32C5 Hands-On Workshop 2026
 
 ## Hands-On Exercises
 * [Lab 1: GPIO LED Toggle](labs/lab1-STM32C5-GPIO-LED-Toggle.md)
