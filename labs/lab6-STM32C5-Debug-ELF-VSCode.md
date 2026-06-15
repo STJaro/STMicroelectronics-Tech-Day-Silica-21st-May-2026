@@ -69,5 +69,7 @@ The VS Code / CMake project structure does not include an Eclipse `.project` fil
 4. When prompted to switch to the **Debug perspective**, click **Switch**.
 5. Press **F8** (Resume) to continue execution, or step through the code.
 
+> 💡 **Why source-level stepping works:** The firmware was compiled with full DWARF debug symbols embedded directly inside the `.elf` file. When STM32CubeIDE loads the ELF, it reads those symbols to map every machine instruction back to the original C source line — enabling breakpoints, step-over, step-into, and local variable inspection exactly as if the project had been built inside STM32CubeIDE itself.
+
 ---
 
