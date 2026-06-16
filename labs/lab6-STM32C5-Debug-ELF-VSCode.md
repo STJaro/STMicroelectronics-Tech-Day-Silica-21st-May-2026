@@ -16,9 +16,9 @@ Note the **full absolute path** to this `.elf` file — you will need it when cr
 
 ---
 
-## 💻 2. Create a Stub Project in STM32CubeIDE for Symbol Resolution
+## 💻 2. Create a Stub Project in STM32CubeIDE
 
-The VS Code / CMake project structure does not include an Eclipse `.project` file that STM32CubeIDE expects. Instead, create a minimal stub project that acts purely as a debug launcher — its own source files will never be compiled or flashed.
+We will create a minimal stub project that acts purely as a debug launcher — its own source files will never be compiled or flashed.
 
 1. Open **STM32CubeIDE** and select (or create) a workspace.
 2. Go to **File ➜ STM32 Project Create/Import**.
